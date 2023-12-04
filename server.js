@@ -1,13 +1,16 @@
 const express = require("express");
 const kenx = require("knex");
+const dotenv = require('dotenv');
+dotenv.config();
 
 const db = kenx({
   client: "pg",
   connection: {
-    host: "127.0.0.1",
-    user: "postgres",
-    password: "chisom05",
-    database: "todo_list"
+    host: process.env.DB_SERVER,
+    port: 5432,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB
   }
 });
 
