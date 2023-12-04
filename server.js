@@ -19,6 +19,32 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.set("view engine", "ejs");
 
+//todo init table
+async function createTaskTable() {
+  try {
+    // Check if the "task" table exists
+    const tableExists = await db.schema.hasTable('task');
+
+    if (!tableExists) {
+      // Create the "task" table if it doesn't exist
+      await db.schema.createTable('task', (table) => {
+        table.increments('id').primary();
+        table.text('task').unique();
+        table.integer('status').defaultTo(0);
+      });
+
+      console.log('The "task" table has been created.');
+    } else {
+      console.log('The "task" table already exists.');
+    }
+  } catch (error) {
+    console.error('Error creating the "task" table:', error);
+  } 
+}
+
+// Call the function to create the "task" table
+createTaskTable();
+
 app.use(express.static("public"));
 
 // res.render
