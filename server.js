@@ -4,10 +4,11 @@ const kenx = require("knex");
 const db = kenx({
   client: "pg",
   connection: {
-    host: "127.0.0.1",
+    host: "localhost",
+    port: 5432,
     user: "postgres",
-    password: "chisom05",
-    database: "todo_list"
+    password: "postgres",
+    database: "TODOLIST"
   }
 });
 
